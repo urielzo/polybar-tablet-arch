@@ -1,0 +1,11 @@
+# Set colors from .Xresources and use Solarized color scheme as a fallback
+
+background = #00000000
+background-alt = #12171b
+foreground = #ffffff
+foreground-alt = #924D37
+primary = #625853
+secondary = #b9b3b1
+urgent = #877871
+bg = #121212
+fg = #dad6d2

@@ -1,0 +1,95 @@
+#----------------------------- Primary modules -------------------------------#
+[module/network2]
+type = custom/script
+exec = $HOME/.config/polybar/scripts/check-network
+click-left = networkmanager_dmenu &
+click-right = networkmanager_dmenu &
+tail = true
+format-background = ${colors.bg}
+format-foreground = ${colors.fg}
+
+;#################################################
+
+[module/alsa]
+type = internal/alsa
+;speaker-mixer = Speaker
+;headphone-mixer = Headphone
+;headphone-id = 16
+;mapped = true
+format-volume = <ramp-volume>
+label-volume = %percentage%%
+format-muted-prefix = " "
+label-muted = 
+ramp-volume-0 = 
+ramp-volume-0-foreground = ${colors.fg}
+ramp-volume-0-background = ${colors.bg}
+ramp-volume-1 = 
+ramp-volume-1-foreground = ${colors.fg}
+ramp-volume-1-background = ${colors.bg}
+ramp-volume-2 = 
+ramp-volume-2-foreground = ${colors.fg}
+ramp-volume-2-background = ${colors.bg}
+ramp-volume-3 = 
+ramp-volume-3-foreground = ${colors.fg}
+ramp-volume-3-background = ${colors.bg}
+ramp-volume-4 = 
+ramp-volume-4-foreground = ${colors.fg}
+ramp-volume-4-background = ${colors.bg}
+ramp-volume-5 = 
+ramp-volume-5-foreground = ${colors.fg}
+ramp-volume-5-background = ${colors.bg}
+ramp-volume-6 = 
+ramp-volume-6-foreground = ${colors.fg}
+ramp-volume-6-background = ${colors.bg}
+
+;#################################################
+
+[module/fake_battery]
+type = custom/text
+content = ""
+click-left = ~/.config/regolith/i3/scripts/polybar_modules/backlight decrease
+content-foreground = ${colors.fg}
+content-background = ${colors.bg}
+
+;#################################################
+
+[module/date]
+type = internal/date
+interval = 5
+time = " %H:%M"
+format-foreground = ${colors.fg}
+format-background = ${colors.bg}
+label = "%time% "
+
+[module/popup-calendar]
+type = custom/script
+format-foreground = ${colors.fg}
+exec = ~/.config/polybar/scripts/popup-calendar.sh
+interval = 5
+click-right = ~/.config/polybar/scripts/popup-calendar.sh --popup &
+click-left = ~/.config/regolith/i3/scripts/polybar_modules/tablet_options toggle
+;#################################################
+
+[module/applauncher]
+type = custom/ipc
+hook-0 = ~/.config/regolith/i3/scripts/polybar_modules/tablet_launcher icon
+initial = 1
+format = <output>
+click-left = ~/.config/regolith/i3/scripts/polybar_modules/tablet_launcher toggle
+click-right = ~/.config/popups/calendar/pop_cal
+format-background = ${colors.background-alt}
+format-foreground = ${colors.foreground}
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+[module/option_menu]
+type = custom/ipc
+hook-0 = ~/.config/regolith/i3/scripts/polybar_modules/tablet_options icon
+initial = 1
+click-left = ~/.config/regolith/i3/scripts/polybar_modules/tablet_options toggle
+click-right = ~/.config/popups/power/power
+format-background = ${colors.background}
+format-underline = ${colors.foreground}
+
+
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Switch into tablet mode (portrait orientation designed for touchscreen use)
+
+#/bin/rotate_display tablet
+#/bin/onscreen_keyboard launch
+~/.config/regolith/i3/scripts/polybar_tablet launch
+#unclutter -idle 0.01 -root &    # Hide the cursor
+#feh --randomize --bg-fill ~/.config/i3/wallpapers/

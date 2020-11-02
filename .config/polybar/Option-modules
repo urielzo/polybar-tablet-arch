@@ -1,0 +1,357 @@
+#-----------------------------------------------------------------------------#
+#------------------------------ Option modules -------------------------------#
+[module/wifi]
+type = custom/text
+content = "  "
+click-left = gnome-control-center wifi
+content-background = ${colors.bg}
+content-foreground = ${colors.fg}
+;-------------------------------------------------
+[module/network3]
+type = internal/network
+interface = enp5s0
+interval = 1.0
+accumulate-stats = true
+unknown-as-up = true
+label-connected = "%downspeed:8%"
+label-connected-foreground = ${colors.secondary}
+label-disconnected =  "Not Connected"
+
+;################################################
+
+[module/cpu]
+type = internal/cpu
+interval = 0.8
+format = <label>
+label = "  "
+label-foreground = ${colors.fg}
+ramp-coreload-spacing = 0
+ramp-coreload-0 = "▁"
+ramp-coreload-0-foreground = ${colors.fg}
+ramp-coreload-1 = "▂"
+ramp-coreload-1-foreground = ${colors.fg}
+ramp-coreload-2 = "▃"
+ramp-coreload-2-foreground = ${colors.fg}
+ramp-coreload-3 = "▄"
+ramp-coreload-3-foreground = ${colors.fg}
+ramp-coreload-4 = "▅"
+ramp-coreload-4-foreground = ${colors.fg}
+ramp-coreload-5 = "▆"
+ramp-coreload-5-foreground = ${colors.fg}
+ramp-coreload-6 = "▇"
+ramp-coreload-6-foreground = ${colors.fg}
+ramp-coreload-7 = "█"
+ramp-coreload-7-foreground = ${colors.fg}
+;------------------------------------------
+[module/cpu-text]
+type = internal/cpu
+interval = 2
+;format-prefix = " "
+;format-prefix-foreground = ${colors.fg}
+;format-underline = #f90000
+label = "         Cpu: %percentage%%"
+label-foreground = ${colors.secondary}
+
+;############################################
+
+[module/memory]
+type = internal/memory
+interval = 3
+format = <label>
+label = "  "
+label-foreground = ${colors.fg}
+bar-used-indicator =
+bar-used-width = 50
+bar-used-foreground-0 = ${colors.fg}
+bar-used-foreground-1 = ${colors.fg}
+bar-used-foreground-2 = ${colors.fg}
+bar-used-foreground-3 = ${colors.fg}
+bar-used-fill = ▐
+bar-used-empty = ▐
+bar-used-empty-foreground = #212121
+ramp-used-0 = ▁
+ramp-used-0-foreground = ${colors.fg}
+ramp-used-1 = ▂
+ramp-used-1-foreground = ${colors.fg}
+ramp-used-2 = ▃
+ramp-used-2-foreground = ${colors.fg}
+ramp-used-3 = ▄
+ramp-used-3-foreground = ${colors.fg}
+ramp-used-4 = ▅
+ramp-used-4-foreground = ${colors.fg}
+ramp-used-5 = ▆
+ramp-used-5-foreground = ${colors.fg}
+ramp-used-6 = ▇
+ramp-used-6-foreground = ${colors.fg}
+ramp-used-7 = █
+ramp-used-7-foreground = ${colors.fg}
+ramp-free-0 = ▁
+ramp-free-1 = ▂
+ramp-free-2 = ▃
+ramp-free-3 = ▄
+ramp-free-4 = ▅
+ramp-free-5 = ▆
+ramp-free-6 = ▇
+ramp-free-7 = █
+;----------------------------------------
+[module/memory-text]
+type = internal/memory
+interval = 2
+label = "       Mem: %percentage_used%%"
+label-foreground = ${colors.secondary}
+
+;##########################################
+
+[module/pacman]
+type = custom/text
+content = "  "
+content-background = ${colors.bg}
+content-foreground = ${colors.fg}
+content-padding = 0
+;--------------------------------------------
+[module/pacman-text]
+type = custom/script
+exec = checkupdates | wc -l
+interval = 1000
+label =Pacman:%output%
+format-foreground = ${colors.secondary}
+format-background = ${colors.bg}
+
+;#############################################
+
+[module/temperature]
+type = internal/temperature
+interval = 0.5
+thermal-zone = 0
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+base-temperature = 20
+warn-temperature = 60
+units = false
+format = <label>
+format-warn = <ramp> <label-warn>
+label = "  "
+label-foreground = ${colors.fg}
+label-warn = TEMP %temperature-c%
+label-warn-foreground = ${colors.fg}
+ramp-0 = A
+ramp-1 = B
+ramp-2 = C
+ramp-foreground = ${colors.fg}
+;-----------------------------------------------------------------------
+[module/temperature-text]
+type = internal/temperature
+interval = 0.5
+thermal-zone = 0
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+base-temperature = 20
+warn-temperature = 60
+units = false
+format = <label>
+format-warn = <label-warn>
+label = "      Temp:%temperature-c%"
+label-foreground = ${colors.secondary}
+label-warn = TEMP %temperature-c%
+label-warn-foreground = ${colors.secondary}
+ramp-0 = A
+ramp-1 = B
+ramp-2 = C
+ramp-foreground = ${colors.secondary}
+
+;#######################################################
+
+[module/launcher]
+type = custom/text
+content = "    "
+content-background = ${colors.bg}
+content-foreground = ${colors.fg}
+content-padding = 0
+click-left = ~/.config/polybar/scripts/styles.sh --Light
+click-right = ~/.config/polybar/scripts/styles.sh --Dark
+click-center = ~/.config/regolith/i3/scripts/pmenu.sh
+;---------------------------------------------------------
+[module/launcher-text]
+type = custom/text
+content = "    Theme"
+content-background = ${colors.bg}
+content-foreground = ${colors.secondary}
+content-padding = 0
+click-left = ~/.config/polybar/scripts/styles.sh --Light
+click-right = ~/.config/polybar/scripts/styles.sh --Dark
+click-center = ~/.config/regolith/i3/scripts/pmenu.sh
+
+;#######################################################
+
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+interval = 10
+fixed-values = true
+format-mounted = <label-mounted>
+format-mounted-prefix-foreground = ${colors.fg}
+format-mounted-prefix-background = ${colors.bg}
+format-unmounted = <label-unmounted>
+label-mounted = "   "
+label-mounted-foreground = ${colors.fg}
+label-unmounted = %mountpoint%: not mounted
+#-----------------------------------------------------------------------------#
+[module/filesystem-text]
+type = internal/fs
+mount-0 = /
+interval = 10
+fixed-values = true
+format-mounted = <label-mounted>
+format-unmounted = <label-unmounted>
+label-mounted = "   %free% "
+label-mounted-foreground = ${colors.secondary}
+label-unmounted = %mountpoint%: not mounted
+
+;#######################################################
+
+[module/keyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+format = <label-layout>
+label-layout = "    "
+label-layout-background = ${colors.bg}
+label-layout-foreground = ${colors.fg}
+label-layout-overline = ${colors.bg}
+label-layout-underline = ${colors.bg}
+label-indicator-on = %name%
+label-indicator-padding = 0
+label-indicator-on-foreground = ${colors.fg}
+;-------------------------------------------------------------
+[module/keyboard-text]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+format = <label-layout>
+label-layout = "          %layout% "
+label-layout-background = ${colors.bg}
+label-layout-foreground = ${colors.secondary}
+label-indicator-on = %name%
+label-indicator-padding = 0
+label-indicator-on-foreground = ${colors.fg}
+
+;#######################################################
+
+[module/mpd-play]
+type = internal/mpd
+interval = 2
+format-online =<icon-play>
+format-online-background = ${colors.bg}
+format-online-foreground = ${colors.fg}
+format-online-padding = 1
+label-song = " %artist% "
+label-offline = "MPD is offline"
+icon-play = "    喇"
+icon-play-foreground =${colors.fg}
+;-------------------------------------------
+[module/mpd-play-text]
+type = internal/mpd
+interval = 2
+format-online =<icon-play>
+format-online-background = ${colors.bg}
+format-online-foreground = ${colors.fg}
+format-online-padding = 1
+icon-play = "         play"
+icon-play-foreground =${colors.secondary}
+
+;#################################################
+
+[module/mpd-stop]
+type = internal/mpd
+interval = 2
+format-online =<icon-stop>
+format-online-background = ${colors.bg}
+format-online-foreground = ${colors.fg}
+format-online-padding = 1
+label-offline = "MPD is offline"
+icon-stop = "    "
+icon-stop-foreground =${colors.fg}
+icon-stop-background =${colors.bg}
+;---------------------------------------------
+[module/mpd-stop-text]
+type = internal/mpd
+interval = 2
+format-online =<icon-stop>
+format-online-background = ${colors.bg}
+format-online-foreground = ${colors.secondary}
+format-online-padding = 1
+icon-stop = "         stop"
+icon-stop-foreground =${colors.secondary}
+icon-stop-background =${colors.bg}
+
+;#################################################
+
+[module/i3-tiny]
+type = internal/i3
+format = <label-state>
+index-sort = true
+enable-click = true
+reverse-scroll = false
+label-focused = "  "
+label-focused-foreground = ${colors.fg}
+label-unfocused = "  "
+label-urgent = 
+label-emty =
+
+;#################################################
+
+[module/xwindow]
+type = internal/xwindow
+label =   %{T2}%title:0:25:...%%{T-}
+label-background = ${colors.bg}
+label-foreground = ${colors.fg}
+
+;#################################################
+
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar/scripts/openweathermap-fullfeatured.sh
+interval = 600
+label-font = 4
+label-foreground = ${colors.fg}
+label-background = ${colors.bg}
+
+;#################################################
+
+[module/date2]
+type = internal/date
+interval = 5
+time = "%A,%B %d"
+label = "%time%"
+format-foreground = ${colors.urgent}
+;-------------------------------------------------
+[module/date3]
+type = internal/date
+interval = 5
+time = "%H:%M"
+label = "%time%"
+format-foreground = ${colors.foreground-alt}
+
+;#################################################
+
+[module/settings]
+type = custom/text
+content = "  "
+click-left = ~/.config/polybar/scripts/powermenu
+content-foreground = ${colors.urgent}
+
+;#################################################
+
+[module/nautilus]
+type = custom/text
+content = "  "
+click-left = /usr/bin/nautilus --new-window
+content-foreground = ${colors.urgent}
+
+;#################################################
+
+[module/notifications]
+type = custom/text
+content = "  "
+click-left  = ~/.config/polybar/scripts/launcher &
+content-foreground = ${colors.urgent}
+
+;#################################################

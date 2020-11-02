@@ -1,0 +1,97 @@
+#!/bin/bash
+
+TMP_FILE=/tmp/applauncher
+
+open() {
+    ~/.config/regolith/i3/scripts/polybar_modules/tablet_options close
+    polybar-msg -p $(cat /tmp/tablet_launcher_pid) cmd show
+    echo open > $TMP_FILE
+    polybar-msg -p $(cat /tmp/tablet_pid) hook applauncher 1
+}
+
+close() {
+    polybar-msg -p $(cat /tmp/tablet_launcher_pid) cmd hide
+    echo closed > $TMP_FILE
+    polybar-msg -p $(cat /tmp/tablet_pid) hook applauncher 1
+}
+
+is_open() {
+    if [ "$(cat $TMP_FILE)" == "open" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+toggle() {
+    if is_open; then
+        close
+    else
+        open
+    fi
+}
+
+launch() {
+    ID=$(cat $TMP_FILE)
+    case "$1" in 
+        stacked)
+            i3-msg layout stacked &
+            ;;
+        tabbed)
+            i3-msg layout tabbed &
+            ;;
+        notes)
+            # workaround to avoid issues when one polybar process launches another
+            i3-msg exec notes
+            ;;
+        split)
+            i3-msg layout toggle split &
+            ;;
+        terminal)
+            terminator &
+            ;;
+        music)
+            pavucontrol &
+            ;;
+        calculator)
+            GDK_SCALE=2 gnome-calculator &
+            ;;
+        *)
+            exit
+    esac
+    kill $ID
+    close
+}
+
+icon() {
+    COLOR_BASE="%{F#ffffff}"
+    COLOR_ACTIVE="%{F#313738}"
+    COLOR_END="%{F-}"
+
+
+    if is_open; then
+        echo "$COLOR_ACTIVE  $COLOR_END"
+    else
+        echo "$COLOR_BASE  $COLOR_END"
+    fi
+}
+
+case "$1" in
+    launch)
+        launch $2;;
+    open)
+        open;;
+    close)
+        close;;
+    toggle)
+        toggle;;
+    icon)
+        icon;;
+    is_open)
+        is_open;;
+    *)
+        echo "Unknown option $1"
+        echo "applauncher [launch|open|close|toggle|is_open]"
+esac
+
+

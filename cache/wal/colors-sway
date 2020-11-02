@@ -1,0 +1,21 @@
+set $wallpaper /home/uriel/.config/polybar/wallpapers/girl.jpg
+
+set $background #121212
+set $foreground #dad6d2
+
+set $color0 #121212
+set $color1 #746B68
+set $color2 #924D37
+set $color3 #867972
+set $color4 #867F7F
+set $color5 #91847B
+set $color6 #978E8B
+set $color7 #dad6d2
+set $color8 #989593
+set $color9 #746B68
+set $color10 #924D37
+set $color11 #867972
+set $color12 #867F7F
+set $color13 #91847B
+set $color14 #978E8B
+set $color15 #dad6d2

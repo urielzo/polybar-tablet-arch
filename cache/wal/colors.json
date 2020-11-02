@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/uriel/.config/polybar/wallpapers/girl.jpg",
+    "alpha": "100",
+
+    "special": {
+        "background": "#121212",
+        "foreground": "#dad6d2",
+        "cursor": "#dad6d2"
+    },
+    "colors": {
+        "color0": "#121212",
+        "color1": "#746B68",
+        "color2": "#924D37",
+        "color3": "#867972",
+        "color4": "#867F7F",
+        "color5": "#91847B",
+        "color6": "#978E8B",
+        "color7": "#dad6d2",
+        "color8": "#989593",
+        "color9": "#746B68",
+        "color10": "#924D37",
+        "color11": "#867972",
+        "color12": "#867F7F",
+        "color13": "#91847B",
+        "color14": "#978E8B",
+        "color15": "#dad6d2"
+    }
+}

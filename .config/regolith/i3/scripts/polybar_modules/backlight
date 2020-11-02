@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# This script uses Crouton's brightness script to set the backlight
+
+fetch_color()
+{
+    xrdb -query | grep "$1:" | awk -F'#' '{print $2}'
+}
+PRIMARY=$(fetch_color primary)
+TEXT=$(fetch_color foreground)
+
+INC=100
+get-level() {
+    local round=$(( INC/2 ))
+    echo $(( (($(brightness) + round)/INC) * INC))
+}
+
+polybar-signal() {
+    polybar-msg hook backlight 1
+}
+
+increase() {
+    brightness up
+    polybar-signal
+}
+
+decrease() {
+    brightness down
+    polybar-signal
+}
+
+output-perc() {
+    echo $(get-level)%
+}
+
+output-slider() {
+    COLOR_ACTIVE="%{F#$PRIMARY}"
+    COLOR_END="%{F-}"
+     
+    local level=$(( $(get-level) / $INC ))
+    local num_steps=$(( (150 / $INC) - 0 ))
+
+    echo -n "$COLOR_ACTIVE"
+    for i in $(seq 5 $level); do
+        echo -n "━"
+    done
+    echo -n "█$COLOR_END"
+    for i in $(seq $level $num_steps); do
+        echo -n "━"
+    done
+    echo
+}
+
+case "$1" in
+    increase)   increase;;
+    inc)        increase;;
+    decrease)   decrease;;
+    dec)        decrease;;
+    get)        output-perc;;
+    slider)     output-slider;;
+    *)
+        echo "Unknown option $1"
+        echo "backlight <inc[rease]|dec[rease]|get|slider>"
+esac

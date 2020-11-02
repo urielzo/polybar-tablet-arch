@@ -1,0 +1,42 @@
+#!/bin/bash
+getcolors () {
+	foreground=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
+	background=$(xrdb -query | grep 'background:'| awk '{print $NF}')
+	color8=$(xrdb -query | grep 'color0:'| awk '{print $NF}')
+	color1=$(xrdb -query | grep 'color1:'| awk '{print $NF}')
+	color2=$(xrdb -query | grep 'color2:'| awk '{print $NF}')
+	color3=$(xrdb -query | grep 'color3:'| awk '{print $NF}')
+	color4=$(xrdb -query | grep 'color4:'| awk '{print $NF}')
+	color5=$(xrdb -query | grep 'color5:'| awk '{print $NF}')
+	color6=$(xrdb -query | grep 'color6:'| awk '{print $NF}')
+	color7=$(xrdb -query | grep 'color7:'| awk '{print $NF}')
+}
+
+# Only use the function above if the cache of paintmybox couldn't be found
+if [ -e ~/.cache/wal/colors.sh ]; then
+	. ~/.cache/wal/colors.sh
+	else
+	getcolors
+fi
+
+# Launch rofi with custom configuration
+rofi -show drun \
+-display-drun "Search " \
+-hide-scrollbar true \
+-border 2 \
+-border-radius 8 \
+-bw 2 \
+-lines 23 \
+-padding 30 \
+-xoffset 12 \
+-yoffset -34 \
+-width 298 \
+-height = 500 \
+-location 7\
+-columns 1 \
+-font "Noto Sans 8" \
+-color-enabled true \
+-color-window "$background,$background,$background" \
+-color-normal "$background,$color7,$background,$background,$color1" \
+-color-active "$background,$color1,$background,$background,$color1" \
+-color-urgent "$background,$color7,$background,$background,$color7"

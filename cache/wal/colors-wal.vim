@@ -1,0 +1,23 @@
+" Special
+let wallpaper  = "/home/uriel/.config/polybar/wallpapers/girl.jpg"
+let background = "#121212"
+let foreground = "#dad6d2"
+let cursor     = "#dad6d2"
+
+" Colors
+let color0  = "#121212"
+let color1  = "#746B68"
+let color2  = "#924D37"
+let color3  = "#867972"
+let color4  = "#867F7F"
+let color5  = "#91847B"
+let color6  = "#978E8B"
+let color7  = "#dad6d2"
+let color8  = "#989593"
+let color9  = "#746B68"
+let color10 = "#924D37"
+let color11 = "#867972"
+let color12 = "#867F7F"
+let color13 = "#91847B"
+let color14 = "#978E8B"
+let color15 = "#dad6d2"

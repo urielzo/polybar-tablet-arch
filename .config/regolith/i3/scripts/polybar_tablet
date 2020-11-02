@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Wrapper to control polybar for tablet mode
+
+CONF=~/.config/polybar/config-tablet
+ID_TOP=/tmp/tablet_pid
+ID_OPTIONS=/tmp/tablet_options_pid
+ID_LAUNCHER=/tmp/tablet_launcher_pid
+
+launch() {
+    # Hide landscape bar
+    ~/.config/regolith/i3/scripts/polybar_wrapper hide
+    polybar -c $CONF top &
+    echo $! > $ID_TOP
+    polybar -c $CONF applauncher &
+    echo $! > $ID_LAUNCHER
+    for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
+        polybar -c $CONF option_menu$i &
+        echo $! > ${ID_OPTIONS}_$i
+    done
+
+    sleep 0.5
+    ~/.config/regolith/i3/scripts/polybar_modules/tablet_launcher open
+    ~/.config/regolith/i3/scripts/polybar_modules/tablet_launcher close
+}
+
+close() {
+    kill $(cat $ID_TOP)
+    kill $(cat $ID_LAUNCHER)
+    for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
+        kill $(cat ${ID_OPTIONS}_$i)
+    done
+    ~/.config/regolith/i3/scripts/polybar_wrapper2 show
+}
+
+show_rofi() {
+    ~/.config/regolith/i3/scripts/polybar_modules/tablet_options close
+    onscreen_keyboard show
+    rofi -show drun -theme drun -font "Noto Sans 8"  -lines 13 -xoffset 30 -yoffset -10 -padding 18 -width 370 -location 2
+    onscreen_keyboard hide
+}
+
+case "$1" in
+    launch) launch;;
+    close)  close;;
+    rofi)   show_rofi;;
+esac
